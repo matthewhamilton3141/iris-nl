@@ -1,0 +1,9 @@
+# Baseline (Hugging Face) backend.
+# IMPORTANT: install PyTorch with CUDA SEPARATELY first, per https://pytorch.org/get-started/locally/
+#   (do NOT `pip install torch` plainly — you'll get the CPU build and no GPU).
+transformers>=4.44
+accelerate>=0.33
+sentencepiece>=0.2          # some tokenizers need this
+
+# TensorRT-LLM is NOT installed from here. Use NVIDIA's NGC container or follow
+# https://nvidia.github.io/TensorRT-LLM/ — versions are tightly coupled to CUDA.
