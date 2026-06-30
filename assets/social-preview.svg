@@ -1,0 +1,43 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .mono { font-family: 'JetBrains Mono','SF Mono','Menlo','Consolas',monospace; }
+    </style>
+  </defs>
+
+  <!-- backdrop -->
+  <rect width="1200" height="630" fill="#11111b"/>
+
+  <!-- terminal window -->
+  <rect x="60" y="55" width="1080" height="520" rx="18" fill="#1e1e2e" stroke="#313244" stroke-width="1.5"/>
+
+  <!-- title bar -->
+  <circle cx="102" cy="91" r="8" fill="#f38ba8"/>
+  <circle cx="128" cy="91" r="8" fill="#f9e2af"/>
+  <circle cx="154" cy="91" r="8" fill="#a6e3a1"/>
+  <text class="mono" x="600" y="97" text-anchor="middle" font-size="17" fill="#6c7086">iris-nl — demo</text>
+
+  <!-- title -->
+  <text class="mono" x="110" y="180" font-size="58" font-weight="700">
+    <tspan fill="#cdd6f4">Iris</tspan><tspan fill="#76B900">-NL</tspan>
+  </text>
+  <text class="mono" x="112" y="222" font-size="23" fill="#7f849c">turn plain English into shell commands</text>
+
+  <!-- you type -->
+  <text class="mono" x="112" y="302" font-size="16" letter-spacing="3" fill="#585b70">YOU TYPE</text>
+  <text class="mono" x="110" y="346" font-size="30" fill="#a6adc8">"undo my last commit"</text>
+
+  <!-- arrow -->
+  <text class="mono" x="122" y="406" font-size="36" fill="#76B900">↓</text>
+
+  <!-- iris-nl returns -->
+  <text class="mono" x="112" y="450" font-size="16" letter-spacing="3" fill="#585b70">IRIS-NL RETURNS</text>
+  <text class="mono" x="110" y="494" font-size="32">
+    <tspan fill="#76B900">❯ </tspan><tspan fill="#cdd6f4">git reset --soft HEAD~1</tspan><tspan fill="#76B900"> ▋</tspan>
+  </text>
+
+  <!-- footer badges -->
+  <text class="mono" x="110" y="546" font-size="18" fill="#585b70">
+    TypeScript<tspan fill="#45475a">  ·  </tspan>NVIDIA NIM<tspan fill="#45475a">  ·  </tspan>Ollama<tspan fill="#45475a">  ·  </tspan>TensorRT-LLM<tspan fill="#45475a">  ·  </tspan>MIT
+  </text>
+</svg>
