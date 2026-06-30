@@ -42,6 +42,7 @@ Set `IRIS_NL_PROVIDER` (or leave it `auto`). Copy `.env.example` to `.env`.
 |----------|------|-------|---------|
 | `nvidia` | Free tier (~40 req/min), no card | Free key at [build.nvidia.com](https://build.nvidia.com) | No |
 | `ollama` | Free forever | Install [Ollama](https://ollama.com), `ollama pull llama3.2` | Yes |
+| `tensorrt` | Free | Your own TensorRT-LLM engine via `trtllm-serve` (see [`bench/`](bench/)) | Yes |
 | `mock`   | Free | none | Yes |
 
 `auto` uses NVIDIA when `NVIDIA_API_KEY` is set, otherwise falls back to Ollama.

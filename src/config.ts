@@ -1,9 +1,10 @@
 import type { Provider } from "./types.js";
 import { NvidiaProvider } from "./providers/nvidia.js";
 import { OllamaProvider } from "./providers/ollama.js";
+import { TensorRtProvider } from "./providers/tensorrt.js";
 import { MockProvider } from "./providers/mock.js";
 
-export type ProviderName = "nvidia" | "ollama" | "mock";
+export type ProviderName = "nvidia" | "ollama" | "tensorrt" | "mock";
 
 /**
  * Decide which provider to use, honoring IRIS_NL_PROVIDER. The default ("auto")
@@ -12,7 +13,12 @@ export type ProviderName = "nvidia" | "ollama" | "mock";
  */
 export function resolveProviderName(env: NodeJS.ProcessEnv = process.env): ProviderName {
   const explicit = (env.IRIS_NL_PROVIDER || "auto").toLowerCase();
-  if (explicit === "nvidia" || explicit === "ollama" || explicit === "mock") {
+  if (
+    explicit === "nvidia" ||
+    explicit === "ollama" ||
+    explicit === "tensorrt" ||
+    explicit === "mock"
+  ) {
     return explicit;
   }
   // auto
@@ -34,6 +40,11 @@ export function createProvider(
       return new OllamaProvider({
         model: env.IRIS_NL_OLLAMA_MODEL || "llama3.2",
         baseUrl: env.IRIS_NL_OLLAMA_BASE_URL || "http://localhost:11434",
+      });
+    case "tensorrt":
+      return new TensorRtProvider({
+        model: env.IRIS_NL_TENSORRT_MODEL || "tensorrt-llm",
+        baseUrl: env.IRIS_NL_TENSORRT_BASE_URL || "http://localhost:8000/v1",
       });
     case "mock":
       return new MockProvider();
