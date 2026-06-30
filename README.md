@@ -1,4 +1,4 @@
-# iris-nl
+# Iris-NL — Natural-Language Shell Commands
 
 Turn plain-English requests into shell commands. Pluggable model providers — use
 **NVIDIA's free hosted API** or a **local Ollama model**, no server to run, no bill.
