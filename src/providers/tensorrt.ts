@@ -40,8 +40,13 @@ export class TensorRtProvider implements Provider {
           temperature: 0.2,
           max_tokens: 400,
         }),
+        // Generous: a cold engine load can take a while, but never hang forever.
+        signal: AbortSignal.timeout(120_000),
       });
     } catch (err) {
+      if ((err as Error).name === "TimeoutError") {
+        throw new Error("TensorRT-LLM request timed out after 120s.");
+      }
       throw new Error(
         `Could not reach the local TensorRT-LLM server at ${this.opts.baseUrl}. ` +
           `Start it with \`trtllm-serve <engine> --port 8000\` on the GPU box. (${(err as Error).message})`,

@@ -23,7 +23,7 @@ export interface CommandSuggestion {
   explanation: string;
   /** True if the command is destructive / hard to undo. Caller should warn before running. */
   danger: boolean;
-  /** Which provider produced this ("nvidia" | "ollama" | "mock"). */
+  /** Which provider produced this ("nvidia" | "ollama" | "tensorrt" | "mock"). */
   provider: string;
 }
 

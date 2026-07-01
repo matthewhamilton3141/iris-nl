@@ -11,6 +11,7 @@ export class MockProvider implements Provider {
 
   async complete(_systemPrompt: string, userPrompt: string): Promise<string> {
     const q = userPrompt.toLowerCase();
+    const port = /port (\d+)/.exec(q)?.[1] ?? "3000";
     const table: { match: RegExp; command: string; explanation: string }[] = [
       {
         match: /undo .*commit|reset .*commit/,
@@ -18,9 +19,9 @@ export class MockProvider implements Provider {
         explanation: "Undoes the last commit but keeps your changes staged.",
       },
       {
-        match: /port (\d+)|what.*using port/,
-        command: "lsof -i :3000",
-        explanation: "Shows which process is using port 3000.",
+        match: /port \d+|what.*using port/,
+        command: `lsof -i :${port}`,
+        explanation: `Shows which process is using port ${port}.`,
       },
       {
         match: /delete .*node_modules|remove .*node_modules/,
@@ -33,7 +34,7 @@ export class MockProvider implements Provider {
         explanation: "Prints the name of the current git branch.",
       },
       {
-        match: /list .*files|show .*files/,
+        match: /list .*files?|show .*files?/,
         command: "ls -la",
         explanation: "Lists all files in the current directory, including hidden ones.",
       },

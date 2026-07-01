@@ -29,8 +29,13 @@ export class OllamaProvider implements Provider {
             { role: "user", content: userPrompt },
           ],
         }),
+        // Generous: a cold model load can take a while, but never hang forever.
+        signal: AbortSignal.timeout(120_000),
       });
     } catch (err) {
+      if ((err as Error).name === "TimeoutError") {
+        throw new Error(`Ollama request timed out after 120s (model: ${this.opts.model}).`);
+      }
       throw new Error(
         `Could not reach Ollama at ${this.opts.baseUrl}. Is it running? Install from https://ollama.com and run \`ollama pull ${this.opts.model}\`. (${(err as Error).message})`,
       );

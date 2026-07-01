@@ -20,22 +20,31 @@ export class NvidiaProvider implements Provider {
         "NVIDIA_API_KEY is not set. Get a free key at https://build.nvidia.com, or use IRIS_NL_PROVIDER=ollama.",
       );
     }
-    const res = await fetch(`${this.opts.baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.opts.apiKey}`,
-      },
-      body: JSON.stringify({
-        model: this.opts.model,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        temperature: 0.2,
-        max_tokens: 400,
-      }),
-    });
+    let res: Response;
+    try {
+      res = await fetch(`${this.opts.baseUrl}/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.opts.apiKey}`,
+        },
+        body: JSON.stringify({
+          model: this.opts.model,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          temperature: 0.2,
+          max_tokens: 400,
+        }),
+        signal: AbortSignal.timeout(60_000),
+      });
+    } catch (err) {
+      if ((err as Error).name === "TimeoutError") {
+        throw new Error("NVIDIA API request timed out after 60s.");
+      }
+      throw err;
+    }
 
     if (!res.ok) {
       const detail = await res.text().catch(() => "");

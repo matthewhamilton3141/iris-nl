@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Turn plain-English requests into shell commands. Pluggable model providers: NVIDIA NIM free API + local Ollama.",
   "type": "module",
+  "repository": "github:matthewhamilton3141/iris-nl",
+  "homepage": "https://github.com/matthewhamilton3141/iris-nl#readme",
+  "bugs": "https://github.com/matthewhamilton3141/iris-nl/issues",
   "bin": {
     "iris-nl": "dist/cli.js"
   },
@@ -16,7 +19,8 @@
     "dev": "node --import tsx src/cli.ts",
     "demo": "IRIS_NL_PROVIDER=mock node --import tsx src/cli.ts",
     "test": "node --import tsx test/run.ts",
-    "start": "node dist/cli.js"
+    "start": "node dist/cli.js",
+    "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [
     "cli",

@@ -3,6 +3,8 @@
 Turn plain-English requests into shell commands. Pluggable model providers — use
 **NVIDIA's free hosted API** or a **local Ollama model**, no server to run, no bill.
 
+![iris-nl demo](demo.gif)
+
 ```
 $ iris-nl "undo my last commit but keep my changes"
 {"command":"git reset --soft HEAD~1","explanation":"Undoes the last commit but keeps your changes staged.","danger":false,"provider":"nvidia"}

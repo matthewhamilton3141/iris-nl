@@ -21,6 +21,12 @@ export function resolveProviderName(env: NodeJS.ProcessEnv = process.env): Provi
   ) {
     return explicit;
   }
+  if (explicit !== "auto") {
+    // A typo like IRIS_NL_PROVIDER=olama shouldn't silently pick a different brain.
+    process.stderr.write(
+      `iris-nl: unknown IRIS_NL_PROVIDER "${explicit}", falling back to auto.\n`,
+    );
+  }
   // auto
   return env.NVIDIA_API_KEY ? "nvidia" : "ollama";
 }

@@ -15,6 +15,8 @@ const DANGEROUS_PATTERNS: RegExp[] = [
   />\s*\/dev\/(sd|nvme|disk)/i, // writing to a raw device
   /:\s*\(\s*\)\s*\{.*\}\s*;\s*:/, // fork bomb
   /\btruncate\b/i,
+  /\b(curl|wget)\b[^|\n]*\|\s*(\S*\/)?(ba|z|da)?sh\b/i, // pipe a downloaded script into a shell
+  /\bfind\b[^\n]*\s-delete\b/i, // bulk file deletion via find
 ];
 
 /** True if the command matches any known-destructive pattern. */
